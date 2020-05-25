@@ -31,7 +31,7 @@ class Venue(db.Model):
     state = db.Column(db.String(120))
     address = db.Column(db.String(120))
     phone = db.Column(db.String(120))
-    image_link = db.Column(db.String(500))
+    image_link = db.Column(db.String(500), nullable = True)
     facebook_link = db.Column(db.String(120))
     shows = db.relationship("Show", backref='venue', lazy = True)
 
@@ -46,7 +46,7 @@ class Artist(db.Model):
     state = db.Column(db.String(120))
     phone = db.Column(db.String(120))
     genres = db.Column(db.String(120))
-    image_link = db.Column(db.String(500))
+    image_link = db.Column(db.String(500), nullable = True)
     facebook_link = db.Column(db.String(120))
     shows = db.relationship("Show", backref='artist', lazy = True)
 

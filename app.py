@@ -189,6 +189,26 @@ def create_venue_form():
 def create_venue_submission():
   # TODO: insert form data as a new Venue record in the db, instead
   # TODO: modify data to be the data object returned from db insertion
+  try:
+    name = request.form.get('name')
+    city = request.form.get('city')
+    state = request.form.get('state')
+    adress = request.form.get('address')
+    phone = request.form.get('phone')
+    facebook_link = request.form.get('facebook_link')
+    genres = request.form.get('genres')
+    venue = Venue(name=name, city=city, state=state, address=adress,
+                  phone=phone, facebook_link=facebook_link, genres=genres)
+    db.session.add(venue)
+    db.session.commit()
+    # on successful db insert, flash success
+    flash('Venue ' + request.form['name'] + ' was successfully listed!')
+  except:
+    db.session.rollback()
+    print(sys.exc_info())
+    flash(sys.exc_info())
+  finally:
+    db.session.close()
 
   # on successful db insert, flash success
   flash('Venue ' + request.form['name'] + ' was successfully listed!')
