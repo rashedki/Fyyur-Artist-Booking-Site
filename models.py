@@ -1,12 +1,4 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate, MigrateCommand
-from flask_moment import Moment
-
-app = Flask(__name__)
-db = SQLAlchemy(app)
-app.config.from_object('config')
-migrate = Migrate(app, db)
+from init import db
 
 # TODO: connect to a local postgresql database
 
@@ -34,6 +26,7 @@ class Venue(db.Model):
     image_link = db.Column(db.String(500), nullable = True)
     facebook_link = db.Column(db.String(120))
     shows = db.relationship("Show", backref='venue', lazy = True)
+    genres = db.Column(db.String(120))
 
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
 
@@ -53,6 +46,3 @@ class Artist(db.Model):
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
 
 # TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
-
-
-db.create_all()

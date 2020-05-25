@@ -15,14 +15,14 @@ from forms import *
 from models import *
 from flask_migrate import Migrate
 import sys
+from init import create_app
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
 
-app = Flask(__name__)
+app = create_app()
 moment = Moment(app)
-app.config.from_object('config')
-db = SQLAlchemy(app)
+app.app_context().push()
 migrate = Migrate(app, db)
 
 #----------------------------------------------------------------------------#
@@ -231,6 +231,8 @@ def delete_venue(venue_id):
 @app.route('/artists')
 def artists():
   # TODO: replace with real data returned from querying the database
+  data = session.query(Artist.id)
+  print(data)
   data=[{
     "id": 4,
     "name": "Guns N Petals",
