@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+from flask_migrate import Migrate, MigrateCommand
+from flask_moment import Moment
 
 app = Flask(__name__)
 db = SQLAlchemy(app)
@@ -42,3 +43,6 @@ class Artist(db.Model):
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
 
 # TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
+
+
+db.create_all()
