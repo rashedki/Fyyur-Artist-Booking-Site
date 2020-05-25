@@ -14,6 +14,7 @@ from flask_wtf import Form
 from forms import *
 from models import *
 from flask_migrate import Migrate
+import sys
 #----------------------------------------------------------------------------#
 # App Config.
 #----------------------------------------------------------------------------#
@@ -446,6 +447,21 @@ def create_shows():
 def create_show_submission():
   # called to create new shows in the db, upon submitting new show listing form
   # TODO: insert form data as a new Show record in the db, instead
+try:
+      art_id = request.form.get('artist_id')
+      ven_id = request.form.get('venue_id')
+      strt_time = request.form.get("start_time")
+      newShow = Show(start_time = strt_time, artist_id = art_id, venue_id = ven_id)
+      db.session.add(newShow)
+      db.session.commit()
+      # on successful db insert, flash success
+      flash('Show was successfully listed!')
+  except:
+      db.session.rollback()
+      print(sys.exc_info())
+      flash(sys.exc_info())
+  finally:
+      db.session.close()
 
   # on successful db insert, flash success
   flash('Show was successfully listed!')
