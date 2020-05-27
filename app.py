@@ -269,20 +269,23 @@ def create_venue_form():
   form = VenueForm()
   return render_template('forms/new_venue.html', form=form)
 
+
 @app.route('/venues/create', methods=['POST'])
 def create_venue_submission():
   # TODO: insert form data as a new Venue record in the db, instead
   # TODO: modify data to be the data object returned from db insertion
+
   try:
     name = request.form.get('name')
     city = request.form.get('city')
     state = request.form.get('state')
     adress = request.form.get('address')
     phone = request.form.get('phone')
+    image_link = request.form.get('image_link')
     facebook_link = request.form.get('facebook_link')
     genres = request.form.getlist('genres')
     venue = Venue(name=name, city=city, state=state, address=adress,
-                  phone=phone, facebook_link=facebook_link, genres=','.join(genres))
+                  phone=phone, image_link=image_link, facebook_link=facebook_link, genres=','.join(genres))
     db.session.add(venue)
     db.session.commit()
     # on successful db insert, flash success
@@ -636,7 +639,7 @@ def create_artist_submission():
   # TODO: modify data to be the data object returned from db insertion
 
   # on successful db insert, flash success
-    flash('Artist ' + request.form['name'] + ' was successfully listed!')
+    #flash('Artist ' + request.form['name'] + ' was successfully listed!')
   # TODO: on unsuccessful db insert, flash an error instead.
   # e.g., flash('An error occurred. Artist ' + data.name + ' could not be listed.')
     try:
@@ -646,14 +649,13 @@ def create_artist_submission():
       phone = request.form.get('phone')
       facebook_link = request.form.get('facebook_link')
       genres = request.form.getlist('genres')
-      artist = Artist(name=name, city=city, state=state,
-                      phone=phone, facebook_link=facebook_link, genres=','.join(genres))
+      artist = Artist(name=name, city=city, state=state, phone=phone, facebook_link=facebook_link, genres=','.join(genres))
       db.session.add(artist)
       db.session.commit()
       flash('Artist ' + request.form['name'] + ' was successfully listed!')
     except:
       db.session.rollback()
-      print('An error occurred. Artist ' + request.form.get('name') + ' could not be listed.')
+      #print('An error occurred. Artist ' + request.form.get('name') + ' could not be listed.')
       flash('An error occurred. Artist ' + request.form.get('name') + ' could not be listed.')
     finally:
       db.session.close()
