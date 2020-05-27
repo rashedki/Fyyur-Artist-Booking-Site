@@ -124,8 +124,15 @@
         btn.onclick = function(e) {
           const venueId = e.target.getAttribute('id')
           fetch('/venues/' + venueId, {
-            method: 'DELETE'
-          });
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          })
+          .then(response => response.json())
+          .then(jsonResponse => {
+            console.log('response', jsonResponse);
+          })
         }
       }
     </script>
