@@ -36,11 +36,16 @@
 				<i class="fas fa-quote-left"></i> {{ venue.seeking_description }} <i class="fas fa-quote-right"></i>
 			</div>
 		</div>
-		{% else %}	
+		{% else %}
 		<p class="not-seeking">
 			<i class="fas fa-moon"></i> Not currently seeking talent
 		</p>
 		{% endif %}
+		<div class="delete-btn">
+			<form method="delete">
+				<input type="submit" value="Delete Venue" class="btn btn-primary btn-primary">
+			</form>
+		</div>
 	</div>
 	<div class="col-sm-6">
 		<img src="{{ venue.image_link }}" alt="Venue Image" />
@@ -76,4 +81,3 @@
 </section>
 
 {% endblock %}
-
