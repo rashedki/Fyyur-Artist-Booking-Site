@@ -739,7 +739,7 @@ def create_show_submission():
       db.session.add(newShow)
       db.session.commit()
       # on successful db insert, flash success
-      flash('Show was successfully listed!')
+      #flash('Show was successfully listed!')
     except:
       db.session.rollback()
       print(sys.exc_info())
