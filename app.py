@@ -300,17 +300,30 @@ def delete_venue(venue_id):
   # SQLAlchemy ORM to delete a record. Handle cases where the session commit could fail.
      try:
         print('Enter inside !!!')
-        Venue.query.filter(Venue.id==venue_id).delete()
-        db.session.commit()
+        print(venue_id)
+        show = Show.query.filter(Show.venue_id==venue_id).all()
+        if len(show)==0:
+          print(show)
+          db.session.delete(show)
+          db.session.commit()
+        val = Venue.query.filter(Venue.id==venue_id).first()
+        if  val is not None:
+          db.session.delete(val)
+          print(val)
+          db.session.commit()
      except:
-        print('Error occured !')
+        #print('Error occured !')
         db.session.rollback()
+        print(sys.exc_info())
+        print('An error occurred. Venue '  + venue_id + ' could not be deleted.')
+        flash('An error occurred. Venue '  + venue_id + ' could not be deleted.')
      finally:
         db.session.close()
   # BONUS CHALLENGE: Implement a button to delete a Venue on a Venue Page, have it so that
   # clicking that button delete it from the db then redirect the user to the homepage
   #return None
-     return redirect(url_for('index'))
+     #return redirect(url_for('index'))
+     return render_template('pages/home.html')
 
 #  Artists
 #  ----------------------------------------------------------------
@@ -633,7 +646,7 @@ def create_artist_submission():
                       phone=phone, facebook_link=facebook_link, genres=','.join(genres))
       db.session.add(artist)
       db.session.commit()
-      flash('Artist ' + request.form['name'] + ' was successfully listed!')
+      #flash('Artist ' + request.form['name'] + ' was successfully listed!')
     except:
       db.session.rollback()
       print('An error occurred. Artist ' + request.form.get('name') + ' could not be listed.')
