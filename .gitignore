@@ -2,3 +2,6 @@ migrations/__pycache__
 __pycache__
 migrations/versions/__pycache__
 env/lib
+*.pyc
+*.pyc
+__pycache__/app.cpython-38.pyc
