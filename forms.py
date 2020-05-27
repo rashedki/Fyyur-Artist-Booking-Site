@@ -4,9 +4,25 @@ from wtforms import (
     StringField,
     SelectField,
     SelectMultipleField,
-    DateTimeField
+    DateTimeField,
+    TextAreaField,
+    BooleanField
 )
-from wtforms.validators import DataRequired, AnyOf, URL
+from wtforms.validators import DataRequired, AnyOf, URL, Length, Regexp, AnyOf, ValidationError
+
+def validate_genres(genres):
+    def _validate(form, field):
+        error = False
+
+        for value in field.data:
+            if value not in genres:
+                error = True
+
+        if error:
+            raise ValidationError('Not valid option')
+
+    return _validate
+
 
 class ShowForm(Form):
     artist_id = StringField(
