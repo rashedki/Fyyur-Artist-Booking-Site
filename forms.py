@@ -13,14 +13,11 @@ from wtforms.validators import DataRequired, AnyOf, URL, Length, Regexp, AnyOf, 
 def validate_genres(genres):
     def _validate(form, field):
         error = False
-
         for value in field.data:
             if value not in genres:
                 error = True
-
         if error:
             raise ValidationError('Not valid option')
-
     return _validate
 
 
