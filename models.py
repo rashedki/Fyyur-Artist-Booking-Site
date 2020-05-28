@@ -1,6 +1,5 @@
 from init import db
 
-# TODO: connect to a local postgresql database
 
 #----------------------------------------------------------------------------#
 # Models.
@@ -32,7 +31,6 @@ class Venue(db.Model):
     #shows = db.relationship("Show", backref='Venue', lazy = True)
     shows = db.relationship('Show', backref=db.backref('Venue', lazy=True))
 
-    # TODO: implement any missing fields, as a database migration using Flask-Migrate
 
 class Artist(db.Model):
     __tablename__ = 'Artist'
@@ -50,7 +48,3 @@ class Artist(db.Model):
     website = db.Column(db.String(120))
     #shows = db.relationship("Show", backref='Artist', lazy = True)
     shows = db.relationship('Show', backref=db.backref('Artist', lazy=True))
-
-    # TODO: implement any missing fields, as a database migration using Flask-Migrate
-
-# TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
